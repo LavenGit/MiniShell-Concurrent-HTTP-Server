@@ -40,8 +40,16 @@ static void clear_jobs(void) {
     while (jobs) { Job *old = jobs; jobs = jobs->next; free(old); }
 }
 
-static void on_sigint(int signo) { (void)signo; if (foreground_pgid > 0) kill(-foreground_pgid, SIGINT); else write(STDOUT_FILENO, "\n", 1); }
-static void add_history(const char *line) {
+static void on_sigint(int sig) {
+    (void)sig;
+
+    if (foreground_pgid > 0) {
+        kill(-foreground_pgid, SIGINT);
+    } else {
+        ssize_t result = write(STDOUT_FILENO, "\n", 1);
+        (void)result;
+    }
+}static void add_history(const char *line) {
     if (!*line) return;
     if (history_count == HISTORY_LIMIT) { free(history[0]); memmove(history, history + 1, (HISTORY_LIMIT - 1) * sizeof(*history)); history_count--; }
     history[history_count] = strdup(line);

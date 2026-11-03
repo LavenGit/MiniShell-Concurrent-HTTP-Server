@@ -1,15 +1,20 @@
-# Compiled executables
+# Compiled C executables
 minishell
 status_server
 *.exe
 *.out
 
-# Object files and libraries
+# C object files and libraries
 *.o
 *.a
 *.so
 
-# Debugging files
+# Python test cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Debugging and crash files
 core
 core.*
 *.log
@@ -19,10 +24,10 @@ core.*
 *.swp
 *~
 
-# IDE files
+# IDE configuration
 .vscode/
 .idea/
 
-# OS-generated files
+# Operating system files
 .DS_Store
 Thumbs.db
